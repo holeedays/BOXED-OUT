@@ -89,6 +89,7 @@ public class Gyro : MonoBehaviour
         //w = cos(RotationAngle / 2);
 
         // think of axis as a vector with which rotate around, since our default position only has the phone rotated around the x axis, we have a vector3 point towards the x axis
+        // for more complicated rotations like (90 deg rot on x and 90 deg on y, the math is a lot more heavy and it'd prob take a bit to work out the kinks)
         Vector3 rotAxis = new Vector3(1f, 0f, 0f); 
         float rotAngle = Mathf.PI / 2f;
         float x = rotAxis.x * Mathf.Sin(rotAngle / 2);
@@ -96,13 +97,7 @@ public class Gyro : MonoBehaviour
         float z = rotAxis.z * Mathf.Sin(rotAngle / 2);
         float w = Mathf.Cos(rotAngle / 2);
 
-        Quaternion comparisonQuaternion = new Quaternion(
-                                                GyroManager.Instance.GetOrientation().x, 
-                                                0f, 
-                                                GyroManager.Instance.GetOrientation().z,
-                                                GyroManager.Instance.GetOrientation().w);
-
-        return Quaternion.Dot(comparisonQuaternion, new Quaternion(x, y, z, w)) >= 1 - OrientationThreshold;
+        return Quaternion.Dot(GyroManager.Instance.GetOrientation(), new Quaternion(x, y, z, w)) >= 1 - OrientationThreshold;
     }
 
     // bool to determine if the gyroscope is being actually moved or it's just noise

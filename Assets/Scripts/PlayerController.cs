@@ -1,15 +1,28 @@
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
-    public Tilemap Tmap;
+    #region Modifiable Variables
+    [Header("Tilemaps")]
+    public Tilemap InteractablesTmap;
+
+    [Header("GameObjects Representing Tiles")]
+    public GameObject Wall;
+    public GameObject Moveable;
+
+    [Header("Player Move Distance")]
+    public float MoveDistance = 1.0f;
+    #endregion
+
     #region Misc 
-    // for now, we're going to use a cube
-    private Vector3 originalPos = new Vector3(-0.5f, 0, -0.5f);
-    private bool keyPressed = false;
+    // for now, we're going to use a cube to represent our character
+    private Vector3 startingPos = new Vector3(-0.5f, 0, -0.5f);
+    private bool hasMoved;
 
     private PlayerInputActionsBase inputSystemControls;
     private InputAction move;
@@ -20,48 +33,85 @@ public class PlayerController : MonoBehaviour
         inputSystemControls = new PlayerInputActionsBase();
         move = inputSystemControls.Player.Move;
 
-        this.transform.position = originalPos;
+        // set position to a normalized area
+        this.transform.position = startingPos;
     }
 
-    // Update is called once per frame
     void Update()
     {
         ToggleKeyBasedMovement();
-        UpdatePlayer();
-
-
-        GridController.Tile3D? tile3D = GridController.GetTile3D(Tmap, GridController.WorldToGridPos(Tmap, this.transform.position));
-
-        if (tile3D != null)
-            Debug.Log(tile3D?.WorldPos);
+        UpdatePlayerKeyBased();
     }
 
-    private void UpdatePlayer()
+    private void UpdatePlayerKeyBased()
     {
-        Vector2 input = GetInput();
+        Vector2 input = GetKeyBasedInput();
 
-        if (keyPressed && input.magnitude == 0)
-            keyPressed = false;
-
-        if (keyPressed || input.magnitude == 0 || !move.enabled)
+        // logic for creating grid-based movement so it functions similar to input.GetKeyDown(Button) 
+        if (input.magnitude == 0)
+        {
+            hasMoved = false;
             return;
+        }
+        if (hasMoved)
+        {
+            return;
+        }
 
-        if (input.x != 0)
-            Move(Vector3.right * input.x);
+        // get our relative positions so we can do the movement logic
+        Vector3 movementIncrement = NormalizeInput(input) * MoveDistance;
+        Vector3 targetPos = this.transform.position + movementIncrement;
+
+        GridController.Tile3D? tile3D = GridController.GetTile3D(InteractablesTmap, GridController.WorldToGridPos(InteractablesTmap, targetPos));
+
+        if (tile3D == null)
+        {
+            targetPos = this.transform.position + movementIncrement;
+        }
         else
-            Move(Vector3.forward * input.y);
+        {
+            // check if the block ahead is a moveable or a wall
+            // the reason for casting is because tile3D is nullable, so we have to convert the value into a non nullable type for basic functions to work
+            if ((bool)tile3D?.RefersToSimilarGameObject(Wall))
+            {
+                return;
+            }
+            else
+            {
+                // if there is a moveable, check if there is another block ahead
+                GridController.Tile3D? furtherTile3D = GridController.GetTile3D(InteractablesTmap, GridController.WorldToGridPos(InteractablesTmap, targetPos + movementIncrement));
+                // if there isn't any, we can move the moveable the same direction we were going
+                if (furtherTile3D == null)
+                {
+                    GridController.MoveTile3D((GridController.Tile3D)tile3D, GridController.WorldToGridPos(InteractablesTmap, targetPos + movementIncrement));
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
 
-        keyPressed = true;
+        Move(targetPos);
+        hasMoved = true;
     }
 
-    private Vector2 GetInput()
+    private Vector2 GetKeyBasedInput()
     {
         return move.ReadValue<Vector2>();
     }
 
-    private void Move(Vector3 movementVector)
+    private Vector3 NormalizeInput(Vector2 rawInput)
     {
-        this.transform.position += movementVector;
+        if (rawInput.x != 0)
+            return Vector3.right * rawInput.x;
+        else 
+            return Vector3.forward * rawInput.y;
+    }
+
+    private void Move(Vector3 targetPos)
+    {
+        this.transform.position = targetPos;    
     }
 
     // allows me to use standard wasd or arrow keys to move

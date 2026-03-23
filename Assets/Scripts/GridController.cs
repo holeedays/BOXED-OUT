@@ -1,4 +1,5 @@
 using System.Drawing.Text;
+using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -10,18 +11,24 @@ public class GridController : MonoBehaviour
     {
         public Tile3D(Tilemap tilemap, GameObject gameObject, Vector3Int cellPos)
         {
-            Tmap = tilemap;
-            GameObj = gameObject;
-            CellPos = cellPos;
+            this.Tmap = tilemap;
+            this.GameObj = gameObject;
+            this.CellPos = cellPos;
         }
 
-        public Tilemap Tmap;
-        public GameObject GameObj;
-        public Vector3Int CellPos;
-        public Vector3 WorldPos
+        public Tilemap Tmap { get; private set; }
+        public GameObject GameObj { get; set; }
+        public Vector3Int CellPos
         {
-            get { return GridToWorldPos(Tmap, CellPos); }
+            get { return WorldToGridPos(this.Tmap, this.GameObj.transform.position); }
             private set {; }
+        }
+
+        // NOTE: This method is NOT checking if the tile's gameobj is referring to the exact same instance, just if the gameobjects belong in the same group
+        // checks if the gameobject referenced in this tile3D is the same as another gameObject
+        public bool RefersToSimilarGameObject(GameObject comparisonGameObj)
+        {
+            return comparisonGameObj.tag == this.GameObj.tag;
         }
     }
 
@@ -33,7 +40,7 @@ public class GridController : MonoBehaviour
         // for ex: gameobjs made thru gameobj brush are not affected by changing anchor values in the tilemap (tile anchors), instead
         // you have to change the anchor in the game obj brush editor in tile palette
 
-        // this just means we have to manually adjust the anchor... sigh
+        // this just means we have to manually adjust the anchor... sigh --> btw go to gameobject brush to check your anchor settings
         Vector3 anchor = new Vector3(0.5f, 0, 0.5f);
         return tmap.CellToWorld(cellPos) + anchor;
     }
@@ -57,11 +64,12 @@ public class GridController : MonoBehaviour
     }
 
     // since 3D gameobjects instantiated with a gameobject brush are only children, and not type of tiles, we can't check through tilemap.GetTile()
-    // so we make our own custom function to detect it; returns a custom Tile3D type (nullable)
+    // so we make our own custom function to detect it; returns a custom Tile3D type or null if there is no tile
     public static Tile3D? GetTile3D(Tilemap tmap, Vector3Int cellPos)
     {
-        Vector3 worldPos = tmap.CellToWorld(cellPos);
-        Vector3 marginalExtent = Vector3.one * 0.5f;
+        Vector3 worldPos = GridToWorldPos(tmap, cellPos);
+        // Note: the marginal extent should be less than the halfextent of one one tile (right now it's about 0.5f so anything < 0.5f would work)
+        Vector3 marginalExtent = Vector3.one * 0.1f;
 
         Collider[] colliders = Physics.OverlapBox(worldPos, marginalExtent, Quaternion.identity, LayerMask.GetMask("Default"));
         foreach (Collider col in colliders)
@@ -73,6 +81,12 @@ public class GridController : MonoBehaviour
         }
 
         return null;
+    }
+    
+    // moves a 3D tile to the spot listed
+    public static void MoveTile3D(Tile3D tile3D, Vector3Int pos)
+    {
+        tile3D.GameObj.transform.position = GridToWorldPos(tile3D.Tmap, pos); 
     }
 }
 

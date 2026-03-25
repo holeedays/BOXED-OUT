@@ -3,40 +3,51 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-    #region Modifiable Fields
-    [Range(0f, 50f)]
-    public float MoveSpeed;
+    #region Instance Setup
+    public static CameraController Instance { get; private set; }
     #endregion
 
-    #region Misc Fields
-    // this is our script that contains all of our mapped player inputs
-    private PlayerInputActionsBase inputSystemControls;
-    private InputAction move;
+    #region Modifiable Fields
+    [Range(0f, 1f)]
+    public float LerpSpeed;
     #endregion
 
     private void Awake()
     {
-        inputSystemControls = new PlayerInputActionsBase();
-        // by default, we have a UI mapping and Player input Action Maps, we choose the player one
-        // and we also access the move component, since those are the actions we are looking at for our camera
-        move = inputSystemControls.Player.Move;
-        move.Enable();
+        Init(); 
     }
 
-    private void OnDisable()
+    private void Init()
     {
-        // if camera were to be ever disabled, we can disable move controls
-        move.Disable();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(Instance.gameObject);
+        }
+
+        Instance = this;
     }
 
     private void Update()
     {
-        Move();
+        FollowPlayer();
     }
 
-    private void Move()
+    private void FollowPlayer()
     {
-        this.transform.position += new Vector3(move.ReadValue<Vector2>().x, 0f, move.ReadValue<Vector2>().y) * Time.deltaTime;
+        if (PlayerController.Instance == null)
+        {
+            Debug.Log("Camera cannot find player...");
+            return;
+        }
+
+        // we're only tracking the player's x and z position
+        Vector3 targetPos = new Vector3(
+                                        PlayerController.Instance.transform.position.x, 
+                                        this.transform.position.y, 
+                                        PlayerController.Instance.transform.position.z);    
+
+        this.transform.position = Vector3.Lerp(this.transform.position, targetPos , LerpSpeed);   
     }
+
 
 }

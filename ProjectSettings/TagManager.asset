@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Wall
   - Moveable
+  - Floor
+  - Goal
   layers:
   - Default
   - TransparentFX

@@ -10,9 +10,20 @@ public class SerialRead
 {
     #region Accessibles
     // other scripts can access these variables, though they shouldn't/can't be modified
-    public SerialPort SerialPort;
+    public SerialPort SerialPort { get; private set; }
     public string Data { get { return data ; } private set {; } }
     private string data;
+
+    public bool PortIsActive
+    {
+        get
+        {
+            if (SerialPort != null)
+                return SerialPort.IsOpen;
+            else
+                 return false;
+        }
+    }
     #endregion
 
     #region Read Thread Logistics
@@ -72,10 +83,17 @@ public class SerialRead
     // start checking for data
     public void StartMonitoring(int readSpeed)
     {
-        Debug.Log("Now monitoring...");
+        Debug.Log("Now attempting to monitor data...");
 
-        ReadData readDataHandler = ReadDataMainMethod;
-        readDataHandler?.Invoke(readSpeed);
+        if (PortIsActive)
+        {
+            ReadData readDataHandler = ReadDataMainMethod;
+            readDataHandler?.Invoke(readSpeed);
+        }
+        else
+        {
+            Debug.Log("No valid serial port to read data");
+        }
     }
 
     // NOTE NOTE NOTE, the following comments on this commented method are super mega fking importante
@@ -113,7 +131,7 @@ public class SerialRead
                     try
                     {
                         data = SerialPort.ReadLine();
-                        Debug.Log($"Data: {data}");
+                        //Debug.Log($"Data: {data}");
                     }
                     // if not, SerialPort.ReadLine() will timeout, we'll just break out of the thread atp
                     catch (Exception timeOutException)
@@ -135,7 +153,7 @@ public class SerialRead
     // close our serial port
     public void Close()
     {
-        if (SerialPort != null)
+        if (PortIsActive)
         {
             Debug.Log("Closing port...");
 

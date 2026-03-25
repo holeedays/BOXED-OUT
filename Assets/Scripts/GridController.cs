@@ -3,6 +3,8 @@ using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
+using static GridController;
 
 public class GridController : MonoBehaviour
 {
@@ -16,8 +18,8 @@ public class GridController : MonoBehaviour
             this.CellPos = cellPos;
         }
 
-        public Tilemap Tmap { get; private set; }
-        public GameObject GameObj { get; set; }
+        public Tilemap Tmap { get; }
+        public GameObject GameObj { get; }
         public Vector3Int CellPos
         {
             get { return WorldToGridPos(this.Tmap, this.GameObj.transform.position); }
@@ -29,6 +31,11 @@ public class GridController : MonoBehaviour
         public bool RefersToSimilarGameObject(GameObject comparisonGameObj)
         {
             return comparisonGameObj.tag == this.GameObj.tag;
+        }
+
+        public void Move(Vector3Int pos)
+        {
+            GameObj.transform.position = GridToWorldPos(Tmap, pos);
         }
     }
 
@@ -65,28 +72,42 @@ public class GridController : MonoBehaviour
 
     // since 3D gameobjects instantiated with a gameobject brush are only children, and not type of tiles, we can't check through tilemap.GetTile()
     // so we make our own custom function to detect it; returns a custom Tile3D type or null if there is no tile
-    public static Tile3D? GetTile3D(Tilemap tmap, Vector3Int cellPos)
+    //public static Tile3D? GetTile3D(Tilemap tmap, Vector3Int cellPos)
+    //{
+    //    Vector3 worldPos = GridToWorldPos(tmap, cellPos);
+    //    // Note: the marginal extent should be less than the halfextent of one one tile (right now it's about 0.5f so anything < 0.5f would work)
+    //    Vector3 marginalExtent = Vector3.one * 0.1f;
+
+    //    Collider[] colliders = Physics.OverlapBox(worldPos, marginalExtent, Quaternion.identity, LayerMask.GetMask("Default"));
+    //    foreach (Collider col in colliders)
+    //    {
+    //        if (col.transform.parent == tmap.transform)
+    //        {
+    //            return new Tile3D(tmap, col.gameObject, cellPos);
+    //        }
+    //    }
+
+    //    return null;
+    //}
+
+    public static IList<Tile3D> GetAllTile3D(Tilemap tmap, Vector3Int cellPos)
     {
         Vector3 worldPos = GridToWorldPos(tmap, cellPos);
         // Note: the marginal extent should be less than the halfextent of one one tile (right now it's about 0.5f so anything < 0.5f would work)
         Vector3 marginalExtent = Vector3.one * 0.1f;
+
+        IList<Tile3D> tile3Ds = new List<Tile3D>();
 
         Collider[] colliders = Physics.OverlapBox(worldPos, marginalExtent, Quaternion.identity, LayerMask.GetMask("Default"));
         foreach (Collider col in colliders)
         {
             if (col.transform.parent == tmap.transform)
             {
-                return new Tile3D(tmap, col.gameObject, cellPos);
+                tile3Ds.Add(new Tile3D(tmap, col.gameObject, cellPos));
             }
         }
 
-        return null;
-    }
-    
-    // moves a 3D tile to the spot listed
-    public static void MoveTile3D(Tile3D tile3D, Vector3Int pos)
-    {
-        tile3D.GameObj.transform.position = GridToWorldPos(tile3D.Tmap, pos); 
+        return tile3Ds;
     }
 }
 

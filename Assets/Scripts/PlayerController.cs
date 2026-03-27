@@ -52,8 +52,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance == null || GameManager.Instance.PanelOpen)
+        if (GameManager.Instance == null || GameManager.Instance.PanelOrNotificationOpen)
+        {
+            Debug.Log("Game Manager script does not exist, cannot move");
             return;
+        }
 
         ToggleKeyBasedMovement();
 
@@ -139,6 +142,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        // logging of the total amount of movements (including moveables), used to revert the player state later on
         int movementCount = 0;
 
         // get our relative positions so we can do the movement logic
@@ -176,6 +180,30 @@ public class PlayerController : MonoBehaviour
 
                 // if there isn't a wall or moveable, we're free to push the moveable block and move as well; I know this method is multifunctional, but it's simple enough
                 tile3D.Move(GridController.WorldToGridPos(LevelManager.Instance.InteractablesTmap, targetPos + movementIncrement));
+                // cool thing to note, Vector3.forward/back/left/etc are static variables, not constant so we have to use an if state branch to rotate our moveable box
+                if (normalizedInput == Vector3.forward)
+                {
+                    tile3D.Rotate(new Vector3(90f, 0f, 0f));
+                }
+                else if (normalizedInput == Vector3.back)
+                {
+                    tile3D.Rotate(new Vector3(-90f, 0f, 0f));
+                }
+                else if (normalizedInput == Vector3.right)
+                {
+                    tile3D.Rotate(new Vector3(0f, 0f, 90f));
+                }
+                else if (normalizedInput == Vector3.left)
+                {
+                    tile3D.Rotate(new Vector3(0f, 0f, -90f));
+                }
+
+                // add box rustle audio here
+                if (SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.PlayBoxRustleSFX();
+                }
+
                 movementCount++;
             }
         }
@@ -190,6 +218,12 @@ public class PlayerController : MonoBehaviour
     private void Move(Vector3 targetPos)
     {
         this.transform.position = targetPos;
+
+        // add footstep audio here
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayPlayerMoveSFX();
+        }
     }
 
     // Gyroscope-Based Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -268,6 +302,10 @@ public class PlayerController : MonoBehaviour
 
     private void CalibrateNewOrientation(Vector3 normalizedInput)
     {
+        // we shouldn't calibrate orientation if there is no input
+        if (normalizedInput  == Vector3.zero) 
+            return;
+
         switch (currentGyroAxes)
         {
             case GyroscopeAxes.XZ:

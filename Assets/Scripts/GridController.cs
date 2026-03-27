@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 using static GridController;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 public class GridController : MonoBehaviour
 {
@@ -36,6 +37,21 @@ public class GridController : MonoBehaviour
         public void Move(Vector3Int pos)
         {
             GameObj.transform.position = GridToWorldPos(Tmap, pos);
+        }
+
+        public void Rotate(Vector3 angle)
+        {
+            // to rotate a point P1 around P2 by angle THETA
+            // set origin to the point of rotation (P2) --> relative_vector = P1 - P2 
+            // apply this quaternion to this directional vector --> resultant_vector = quaternion * relative_vector (resultant vector is the point rotated about the P2 origin)
+            // translate the point back to its previous position --> P1_rotated_around_P2 = resultant_Vector + P2
+
+            Vector3 normalizedAngle = angle;
+
+            Vector3 resultantPos = Quaternion.Euler(angle) * GameObj.transform.forward;
+            Vector3 refPoint = resultantPos + GameObj.transform.position;
+
+            GameObj.transform.LookAt(refPoint);
         }
     }
 

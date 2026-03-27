@@ -35,7 +35,7 @@ public class Panel : MonoBehaviour
         if (thisRectTransform == null)
             return;
 
-        if (thisRectTransform.localScale.magnitude < 1)
+        if (thisRectTransform.localScale.magnitude < Vector3.one.magnitude)
             ScaleUp();
     }
 

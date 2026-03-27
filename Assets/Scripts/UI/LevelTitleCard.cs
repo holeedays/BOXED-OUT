@@ -115,6 +115,12 @@ public class LevelTitleCard : MonoBehaviour
             DarkenScreen();
         else
             DoneClosing = true;
+
+        // play audio here
+        if (SoundManager.Instance != null && !SoundManager.Instance.WhooshPlayed)
+        {
+            SoundManager.Instance.PlayWhooshSFX();
+        }
     }
 
 

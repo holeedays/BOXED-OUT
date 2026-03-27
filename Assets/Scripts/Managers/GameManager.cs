@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.SearchService;
 using UnityEngine;
@@ -41,15 +42,17 @@ public class GameManager : MonoBehaviour
     // reference to warnings on the screen 
     private GameObject setupFailedNotificationPrefabInstance, inputNotificationPrefabInstance;
 
-    // accessible variable that returns whether any panel is open or not
-    public bool PanelOpen 
+    // accessible variable that returns whether any panel or notification is open or not
+    public bool PanelOrNotificationOpen 
     { 
         get 
         {
             return
                 pausePanelPrefabInstance != null ||
                 setupPanelPrefabInstance != null ||
-                instructionsPanelPrefabInstance != null;
+                instructionsPanelPrefabInstance != null ||
+                setupFailedNotificationPrefabInstance != null ||
+                inputNotificationPrefabInstance != null;
         } 
         private set {; } 
     }
@@ -149,6 +152,12 @@ public class GameManager : MonoBehaviour
         }
 
         CheckForExits();
+
+        // play music here
+        if (SoundManager.Instance != null && !SoundManager.Instance.MusicIsPlaying)
+        {
+            SoundManager.Instance.PlayMenuMusic();
+        }
     }
 
     private void UpdateInGameStage()
@@ -168,6 +177,12 @@ public class GameManager : MonoBehaviour
         CheckForUndos();
         CheckForRestarts();
         CheckForExits();
+
+        // play music here
+        if (SoundManager.Instance != null && !SoundManager.Instance.MusicIsPlaying)
+        {
+            SoundManager.Instance.PlayGameMusic();
+        }
     }
 
     private void UpdateEndGameStage()
@@ -182,6 +197,12 @@ public class GameManager : MonoBehaviour
             SerialTest.Instance.EndSerialRead();
 
         CheckForExits();
+
+        // play music here
+        if (SoundManager.Instance != null && !SoundManager.Instance.MusicIsPlaying)
+        {
+            SoundManager.Instance.PlayEndingMusic();
+        }
     }
 
     // scene transition and related methods //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -287,38 +308,54 @@ public class GameManager : MonoBehaviour
     {
         if (exit.WasPressedThisFrame())
         {
-            // for pause panel 
-            if (!PanelOpen)
+            // feature is exclusively for pause panel 
+            if (!PanelOrNotificationOpen)
             {
                 Debug.Log("Game paused");
 
                 LoadPausePanel();
+                return;
             }
-            else
-            {
-                // btw Destroy() is null safe so I dont have to worry about any errors thrown
-                
+
+            // btw Destroy() is null safe so I dont have to worry about any errors thrown
+            if (pausePanelPrefabInstance != null)
                 ClosePausePanel();
-                // for setup panel
+            // for setup panel
+            if (setupPanelPrefabInstance != null)
                 CloseSetupPanel();
-                // for instructions panel
+            // for instructions panel
+            if (instructionsPanelPrefabInstance != null)
                 CloseInstructionsPanel();
-                // for setup failed notification
+            // for setup failed notification
+            if (setupFailedNotificationPrefabInstance != null)
                 CloseSetupFailedNotification();
+            if (inputNotificationPrefabInstance != null)
                 // for input notification
                 CloseInputNotification();
 
-            }
         }
     }
 
     // miscellaneous methods //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public Task InsertPause(int waitTime)
+    {
+        return Task.Delay(waitTime);
+    }
 
     public void LoadPausePanel()
     {
         Canvas canvas = FindFirstObjectByType<Canvas>();
 
         pausePanelPrefabInstance = Instantiate(PausePanelPrefab, canvas.transform);
+
+
+        // play panel open sound here
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayPanelOpenAndCloseSFX();
+            SoundManager.Instance.PauseGameMusic();
+        }
     }
 
     public void LoadSetupPanel()
@@ -326,6 +363,12 @@ public class GameManager : MonoBehaviour
         Canvas canvas = FindFirstObjectByType<Canvas>();
 
         setupPanelPrefabInstance = Instantiate(SetupPanelPrefab, canvas.transform);
+
+        // play panel open sound here
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayPanelOpenAndCloseSFX();
+        }
     }
 
     public void LoadInstructionsPanel()
@@ -333,6 +376,12 @@ public class GameManager : MonoBehaviour
         Canvas canvas = FindFirstObjectByType<Canvas>();
 
         instructionsPanelPrefabInstance = Instantiate(InstructionsPanelPrefab, canvas.transform);
+
+        // play panel open sound here
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayPanelOpenAndCloseSFX();
+        }
     }
 
     public void LoadSetupFailedNotification()
@@ -352,16 +401,35 @@ public class GameManager : MonoBehaviour
     public void ClosePausePanel()
     {
         Destroy(pausePanelPrefabInstance);
+
+        // play panel close sound here
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayPanelOpenAndCloseSFX();
+            SoundManager.Instance.UnPauseGameMusic();
+        }
     }
 
     public void CloseSetupPanel()
     {
         Destroy(setupPanelPrefabInstance);
+
+        // play panel close sound here
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayPanelOpenAndCloseSFX();
+        }
     }
 
     public void CloseInstructionsPanel()
     {
         Destroy(instructionsPanelPrefabInstance);
+
+        // play panel close sound here
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayPanelOpenAndCloseSFX();
+        }
     }
 
     public void CloseSetupFailedNotification()

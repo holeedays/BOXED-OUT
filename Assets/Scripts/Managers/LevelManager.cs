@@ -108,8 +108,25 @@ public class LevelManager : MonoBehaviour
             {
                 if (tile3D.RefersToSimilarGameObject(Moveable))
                 {
-                    tile3D.Move(
-                        GridController.WorldToGridPos(InteractablesTmap, pos - moveVectorAndCount.moveVector));
+                    tile3D.Move(GridController.WorldToGridPos(InteractablesTmap, pos - moveVectorAndCount.moveVector));
+
+                    // also rotate our moveable back
+                    if (moveVectorAndCount.moveVector.normalized == Vector3.forward)
+                    {
+                        tile3D.Rotate(new Vector3(90f, 0f, 0f));
+                    }
+                    else if (moveVectorAndCount.moveVector.normalized == Vector3.back)
+                    {
+                        tile3D.Rotate(new Vector3(-90f, 0f, 0f));
+                    }
+                    else if (moveVectorAndCount.moveVector.normalized == Vector3.right)
+                    {
+                        tile3D.Rotate(new Vector3(0f, 0f, 90f));
+                    }
+                    else if (moveVectorAndCount.moveVector.normalized == Vector3.left)
+                    {
+                        tile3D.Rotate(new Vector3(0f, 0f, -90f));
+                    }
                 }
             }
         }

@@ -55,12 +55,21 @@ public class ButtonForm : MonoBehaviour
 
                 thisButton?.onClick.AddListener(
                                             // delegate { //method or code here ;} also works, you just can't access parameters
-                                            () =>
+                                            async () =>
                                             {
                                                 if (GameManager.Instance == null)
                                                 {
                                                     Debug.LogWarning("Game manager doesn't exist, cannot go to menu.");
                                                 }
+
+                                                // set audio here before game manager goes back to menu
+                                                if (SoundManager.Instance != null)
+                                                {
+                                                    SoundManager.Instance.PlayButtonClickSFX();
+                                                }
+
+                                                int waitTimeMillis = 500;
+                                                await GameManager.Instance.InsertPause(waitTimeMillis);
 
                                                 GameManager.Instance.GoToMenu();
                                             });
@@ -68,7 +77,7 @@ public class ButtonForm : MonoBehaviour
             case TypeOfButton.Start:
 
                 thisButton?.onClick.AddListener(
-                                            () =>
+                                            async () =>
                                             {
                                                 if (GameManager.Instance == null || SerialTest.Instance == null)
                                                 {
@@ -88,18 +97,36 @@ public class ButtonForm : MonoBehaviour
                                                     return;
                                                 }
 
+                                                // set audio here before game manager goes to new game
+                                                if (SoundManager.Instance != null)
+                                                {
+                                                    SoundManager.Instance.PlayButtonClickSFX();
+                                                }
+
+                                                int waitTimeMillis = 500;
+                                                await GameManager.Instance.InsertPause(waitTimeMillis);
+
                                                 GameManager.Instance.StartNewGame();
                                             });
                 break;
             case TypeOfButton.Continue:
 
                 thisButton?.onClick.AddListener(
-                                           () =>
+                                           async() =>
                                            { 
                                                if (GameManager.Instance == null || SerialTest.Instance == null)
                                                {
                                                    Debug.LogWarning("Game manager or serial test doesn't exist, cannot start game.");
                                                }
+
+                                               // set audio here before game manager resumes game
+                                               if (SoundManager.Instance != null)
+                                               {
+                                                   SoundManager.Instance.PlayButtonClickSFX();
+                                               }
+
+                                               int waitTimeMillis = 500;
+                                               await GameManager.Instance.InsertPause(waitTimeMillis);
 
                                                GameManager.Instance.ContinueGame();
                                            });
@@ -114,7 +141,13 @@ public class ButtonForm : MonoBehaviour
                                                  Debug.LogWarning("Game manager doesn't exist, cannot load instructions panel.");
                                              }
 
-                                             if (!GameManager.Instance.PanelOpen)
+                                             // set audio here before game manager resumes game
+                                             if (SoundManager.Instance != null)
+                                             {
+                                                 SoundManager.Instance.PlayButtonClickSFX();
+                                             }
+
+                                             if (!GameManager.Instance.PanelOrNotificationOpen)
                                                  GameManager.Instance.LoadInstructionsPanel();
                                          });
                 break;
@@ -128,7 +161,13 @@ public class ButtonForm : MonoBehaviour
                                                 Debug.LogWarning("Game manager doesn't exist, cannot load setup panel.");
                                             }
 
-                                            if (!GameManager.Instance.PanelOpen)
+                                            // set audio here before game manager resumes game
+                                            if (SoundManager.Instance != null)
+                                            {
+                                                SoundManager.Instance.PlayButtonClickSFX();
+                                            }
+
+                                            if (!GameManager.Instance.PanelOrNotificationOpen)
                                                 GameManager.Instance.LoadSetupPanel();
                                         });
                 break;

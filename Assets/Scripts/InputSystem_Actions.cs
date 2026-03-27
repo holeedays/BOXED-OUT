@@ -180,6 +180,24 @@ public partial class @PlayerInputActionsBase: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3ea1987-fcfb-42e2-bfd5-5eba3a434027"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""602e19f1-52df-46a3-8d67-304a8ce7949c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -576,6 +594,28 @@ public partial class @PlayerInputActionsBase: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Undo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91f039d9-8995-4267-a34e-670dc2e2ee86"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""574e1cf2-d772-41c4-b4a2-858dcb786ae5"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1173,6 +1213,8 @@ public partial class @PlayerInputActionsBase: IInputActionCollection2, IDisposab
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Undo = m_Player.FindAction("Undo", throwIfNotFound: true);
+        m_Player_Exit = m_Player.FindAction("Exit", throwIfNotFound: true);
+        m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1276,6 +1318,8 @@ public partial class @PlayerInputActionsBase: IInputActionCollection2, IDisposab
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Undo;
+    private readonly InputAction m_Player_Exit;
+    private readonly InputAction m_Player_Restart;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1327,6 +1371,14 @@ public partial class @PlayerInputActionsBase: IInputActionCollection2, IDisposab
         /// Provides access to the underlying input action "Player/Undo".
         /// </summary>
         public InputAction @Undo => m_Wrapper.m_Player_Undo;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Exit".
+        /// </summary>
+        public InputAction @Exit => m_Wrapper.m_Player_Exit;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Restart".
+        /// </summary>
+        public InputAction @Restart => m_Wrapper.m_Player_Restart;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1383,6 +1435,12 @@ public partial class @PlayerInputActionsBase: IInputActionCollection2, IDisposab
             @Undo.started += instance.OnUndo;
             @Undo.performed += instance.OnUndo;
             @Undo.canceled += instance.OnUndo;
+            @Exit.started += instance.OnExit;
+            @Exit.performed += instance.OnExit;
+            @Exit.canceled += instance.OnExit;
+            @Restart.started += instance.OnRestart;
+            @Restart.performed += instance.OnRestart;
+            @Restart.canceled += instance.OnRestart;
         }
 
         /// <summary>
@@ -1424,6 +1482,12 @@ public partial class @PlayerInputActionsBase: IInputActionCollection2, IDisposab
             @Undo.started -= instance.OnUndo;
             @Undo.performed -= instance.OnUndo;
             @Undo.canceled -= instance.OnUndo;
+            @Exit.started -= instance.OnExit;
+            @Exit.performed -= instance.OnExit;
+            @Exit.canceled -= instance.OnExit;
+            @Restart.started -= instance.OnRestart;
+            @Restart.performed -= instance.OnRestart;
+            @Restart.canceled -= instance.OnRestart;
         }
 
         /// <summary>
@@ -1794,6 +1858,20 @@ public partial class @PlayerInputActionsBase: IInputActionCollection2, IDisposab
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnUndo(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Exit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnExit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Restart" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRestart(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

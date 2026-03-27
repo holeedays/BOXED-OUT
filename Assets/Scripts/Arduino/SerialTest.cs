@@ -9,19 +9,16 @@ public class SerialTest : MonoBehaviour
 {
     #region Instance Setup
     public static SerialTest Instance { get; private set; }
+    // this is the actual class object that enables our serial port and sllows us to read incoming data printed there
     public SerialRead Sr { get { return sr; } }
     private SerialRead sr;
     #endregion
-
 
     #region Serial Port Setup
     [Tooltip("The port to check")]
     public string Port;
     [Tooltip("The associated baudrate with the port")]
     public short Baudrate;
-    #endregion
-
-    #region Misc
     [Tooltip("The speed at which data sent to the serial port (if any) should be read")]
     public short ReadSpeed;
     #endregion
@@ -30,14 +27,10 @@ public class SerialTest : MonoBehaviour
     {
         Init();
     }
-
-    void Start()
-    {
-        SetupSerialRead();
-    }
-
     private void Init()
     {
+        DontDestroyOnLoad(this.gameObject);
+
         if (Instance != null && Instance != this)
         {
             Destroy(Instance);
@@ -46,18 +39,25 @@ public class SerialTest : MonoBehaviour
         Instance = this;
     }
 
-    private void SetupSerialRead()
+    public void SetupSerialRead()
     {
         // serial read only exists when the application is playing, otherwise it quits automatically
         sr = new SerialRead(Port, Baudrate);
         sr.Open();
         sr.StartMonitoring(ReadSpeed);
 
+        // ends the external thread when we're not in play mode
         Application.quitting += (() =>
         {
-            sr.Close();
+            EndSerialRead();
         });
     }
+
+    public void EndSerialRead()
+    {
+        sr.Close();
+    }
+
 
     public Vector3 GetParsedSerialData()
     {   
@@ -67,7 +67,7 @@ public class SerialTest : MonoBehaviour
         // to include escape characters, use @ at thr front of the string or \\ for each slash
         string dataWhiteSpaceRemoved = Regex.Replace(Sr.Data, @"\s+", "");
 
-        // item 1 should roll, item 2 pitch, item 3 yaw
+        // item 1 should be roll, item 2 pitch, item 3 yaw
         string[] rotationalAxesData = Regex.Split(dataWhiteSpaceRemoved, @"\|+");
 
         // right now, not entirely sure which axis is which: 

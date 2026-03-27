@@ -21,13 +21,16 @@ public class PlayerController : MonoBehaviour
     [Header("Gyroscope-based Movement Variables")]
     [Range(0f, 90f)]
     public float AngularThreshold;
-
     #endregion
 
     #region Misc 
-    // following 2 field are to aid in tile-based movment (prevents consistent movement)
+    // the gyroscope (attitude sensor most likely in our case) can rotate on its axis thereby the axis it rotates on changes
+    // e.g. x, z (rot on x axis) --> x, y | x, z (rot on z axis) --> z, y  
+    public GyroscopeAxes CurrentGyroAxes { get { return currentGyroAxes; } private set {; } }
+    private GyroscopeAxes currentGyroAxes = GyroscopeAxes.XZ;
+
+    // following field is to aid in tile-based movment (prevents consistent movement)
     private bool hasMoved;
-    private bool hasBeenUndone;
 
     // used for gyroscopic purposes
     private Vector3 previousRot;
@@ -35,7 +38,6 @@ public class PlayerController : MonoBehaviour
     // player input 
     private PlayerInputActionsBase inputSystemControls;
     private InputAction move;
-    private InputAction undo;
     #endregion
 
     private void Awake()
@@ -50,8 +52,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance == null || GameManager.Instance.PanelOpen)
+            return;
+
         ToggleKeyBasedMovement();
-        CheckForUndos();
 
         if (move.enabled) 
             UpdatePlayerKeyBased();
@@ -71,13 +75,18 @@ public class PlayerController : MonoBehaviour
         Instance = this;
     }
 
+    // disable this to ignore compile errors
+    private void OnDisable()
+    {
+        // seems like this method is called AFTER the scene changes, so we just put the null conditional here
+        // to avoid this issue
+        move?.Disable();
+    }
+
     private void Setup()
     {
         inputSystemControls = new PlayerInputActionsBase();
         move = inputSystemControls.Player.Move;
-        undo = inputSystemControls.Player.Undo;
-
-        undo.Enable();
     }
 
     private void UpdatePlayerKeyBased()
@@ -110,35 +119,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        //Vector3 normalizedInput = NormalizeRelativeGyroBasedInput(rawInput); // for box
         Vector3 normalizedInput = NormalizeGyroBasedInput(rawInput);
         UpdatePosition(normalizedInput);
+        //CalibrateNewOrientation(normalizedInput); // for box
 
         previousRot = rawInput;
         hasMoved = true;
-    }
-
-    private void CheckForUndos()
-    {
-        if (LevelManager.Instance == null)
-        {
-            Debug.Log("Level manager instance doesn't exist, player cannot undo moves.");
-            return;
-        }
-
-        if (!UndoKeyPressed())
-        {
-            hasBeenUndone = false;
-            return;
-        }
-
-        if (!hasBeenUndone)
-        {
-            Debug.Log("Move has been undone.");
-
-            LevelManager.Instance.RevertToPreviousState();
-            hasBeenUndone = true;
-        }
-
     }
 
     // Universal/Multifunctional Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -220,10 +207,125 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 diffRot = rawInput - previousRot;
 
-        if (diffRot.x > diffRot.z)
-            return Vector3.right * diffRot.x / Mathf.Abs(diffRot.x);
-        else
+        if (Mathf.Abs(diffRot.x) > Mathf.Abs(diffRot.z))
             return Vector3.forward * diffRot.x / Mathf.Abs(diffRot.x);
+        else
+            return Vector3.right * diffRot.z / Mathf.Abs(diffRot.z);
+    }
+
+    // the gyroscope is not absolute, that means the axes chage relative to the orientation of the box so we have to take that account when recording our inputs
+    private Vector3 NormalizeRelativeGyroBasedInput(Vector3 rawInput)
+    {
+        Vector3 diffRot = rawInput - previousRot;
+
+        switch (currentGyroAxes)
+        {
+            case GyroscopeAxes.XZ:
+                // default, technically
+                if (Mathf.Abs(diffRot.x) > Mathf.Abs(diffRot.z))
+                    return Vector3.forward * diffRot.x / Mathf.Abs(diffRot.x);
+                else
+                    return Vector3.right * diffRot.z / Mathf.Abs(diffRot.z);
+
+            case GyroscopeAxes.YZ:
+
+                if (Mathf.Abs(diffRot.y) > Mathf.Abs(diffRot.z))
+                    return Vector3.forward * diffRot.y / Mathf.Abs(diffRot.y);
+                else
+                    return Vector3.right * diffRot.z / Mathf.Abs(diffRot.z);
+
+            case GyroscopeAxes.XY:
+
+                if (Mathf.Abs(diffRot.x) > Mathf.Abs(diffRot.y))
+                    return Vector3.forward * diffRot.x / Mathf.Abs(diffRot.x);
+                else
+                    return Vector3.right * diffRot.y / Mathf.Abs(diffRot.y);
+
+            case GyroscopeAxes.ZY:
+
+                if (Mathf.Abs(diffRot.z) > Mathf.Abs(diffRot.y))
+                    return Vector3.forward * diffRot.z / Mathf.Abs(diffRot.z);
+                else
+                    return Vector3.right * diffRot.y / Mathf.Abs(diffRot.y);
+
+            case GyroscopeAxes.YX:
+
+                if (Mathf.Abs(diffRot.y) > Mathf.Abs(diffRot.x))
+                    return Vector3.forward * diffRot.y / Mathf.Abs(diffRot.y);
+                else
+                    return Vector3.right * diffRot.x / Mathf.Abs(diffRot.x);
+
+            case GyroscopeAxes.ZX:
+
+                if (Mathf.Abs(diffRot.z) > Mathf.Abs(diffRot.x))
+                    return Vector3.forward * diffRot.z / Mathf.Abs(diffRot.z);
+                else
+                    return Vector3.right * diffRot.x / Mathf.Abs(diffRot.x);
+        }
+
+        return Vector3.zero;
+    }
+
+    private void CalibrateNewOrientation(Vector3 normalizedInput)
+    {
+        switch (currentGyroAxes)
+        {
+            case GyroscopeAxes.XZ:
+
+                // if the input is a forward/backward movement
+                if (Mathf.Abs(normalizedInput.z) > 0)
+                    currentGyroAxes = GyroscopeAxes.XY;
+                // else if the input is a left/right movement
+                else
+                    currentGyroAxes = GyroscopeAxes.YZ;
+
+                return;
+
+            case GyroscopeAxes.YZ:
+
+                if (Mathf.Abs(normalizedInput.z) > 0)
+                    currentGyroAxes = GyroscopeAxes.YX;
+                else
+                    currentGyroAxes = GyroscopeAxes.XZ;
+
+                return;
+
+            case GyroscopeAxes.XY:
+
+                if (Mathf.Abs(normalizedInput.z) > 0)
+                    currentGyroAxes = GyroscopeAxes.XZ;
+                else
+                    currentGyroAxes = GyroscopeAxes.ZY;
+
+                return;
+
+            case GyroscopeAxes.ZY:
+
+                if (Mathf.Abs(normalizedInput.z) > 0)
+                    currentGyroAxes = GyroscopeAxes.ZX;
+                else
+                    currentGyroAxes = GyroscopeAxes.XY;
+
+                return;
+
+            case GyroscopeAxes.YX:
+
+                if (Mathf.Abs(normalizedInput.z) > 0)
+                    currentGyroAxes = GyroscopeAxes.YZ;
+                else
+                    currentGyroAxes = GyroscopeAxes.ZX;
+
+                return;
+
+            case GyroscopeAxes.ZX:
+
+                if (Mathf.Abs(normalizedInput.z) > 0)
+                    currentGyroAxes = GyroscopeAxes.ZY;
+                else
+                    currentGyroAxes = GyroscopeAxes.YX;
+
+                return;
+        }
     }
 
     private bool GyroIsBeingRotated(Vector3 inputRot)
@@ -266,9 +368,17 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Key based movement toggled off");
         }
     }
+}
 
-    private bool UndoKeyPressed()
-    {
-        return undo.ReadValue<float>() == 1 ? true : false;
-    }
+// Axes for relative rotations of the gyroscope
+public enum GyroscopeAxes
+{
+    // NOTE: the rightmost letter in each pair is the right axes
+
+    XZ,
+    YZ,
+    XY,
+    ZY,
+    YX,
+    ZX
 }

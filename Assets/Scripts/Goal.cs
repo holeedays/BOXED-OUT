@@ -12,6 +12,7 @@ public class Goal : MonoBehaviour
             return spriteRend.enabled;
         }
     }
+    // checks if a moveable is in the domain of the goal
     public bool MoveableDetected
     {
         get 
@@ -24,12 +25,13 @@ public class Goal : MonoBehaviour
         }
     }
     private bool moveableDetected;
+    // switch statement field to prevent excessively increasing the goals completed field of LevelManager
     private bool notifiedLevelManager;
 
     private SpriteRenderer spriteRend;
     #endregion
 
-    private void Awake()
+    private void Start()
     {
         Setup();
     }
@@ -65,12 +67,13 @@ public class Goal : MonoBehaviour
             return;
         }
 
+        // bad way to make a switch statement, but it works
         if (notifiedLevelManager == false && moveableDetected)
         {
             LevelManager.Instance.GoalsCompleted++;
             notifiedLevelManager = true;
         }
-        else if (!moveableDetected)
+        else if (notifiedLevelManager == true && !moveableDetected)
         {
             LevelManager.Instance.GoalsCompleted--;
             notifiedLevelManager = false;

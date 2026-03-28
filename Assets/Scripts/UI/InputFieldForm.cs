@@ -108,6 +108,7 @@ public class InputFieldForm : MonoBehaviour
         if (SerialTest.Instance == null)
         {
             Debug.LogWarning("Serial test instance does not exist, cannot store input");
+            return;
         }
 
         SerialTest.Instance.Port = portName;
@@ -120,6 +121,7 @@ public class InputFieldForm : MonoBehaviour
         if (SerialTest.Instance == null)
         {
             Debug.LogWarning("Serial test instance does not exist, cannot store input");
+            return;
         }
 
         SerialTest.Instance.Baudrate = baudRate;
@@ -132,6 +134,7 @@ public class InputFieldForm : MonoBehaviour
         if (SerialTest.Instance == null)
         {
             Debug.LogWarning("Serial test instance does not exist, cannot store input");
+            return;
         }
 
         SerialTest.Instance.ReadSpeed = readSpeed;

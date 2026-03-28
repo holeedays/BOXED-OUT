@@ -11,19 +11,18 @@ public class LevelTitleCard : MonoBehaviour
     #region Modifiable Variables
     [Range(0f, 3f)]
     public float AnimationSpeed;
+    // made this public so we can use other parts of the transition as well 
+    public TitleCardStage Tcs;
     #endregion
 
     #region Misc
     // marks all animations are done (including the closing one)
     public bool DoneClosing { get; private set; }
-
-    private TitleCardStage tcs;
-
     private TMP_Text text;
     private CanvasGroup cg;
     #endregion
 
-    private enum TitleCardStage
+    public enum TitleCardStage
     {
         Reveal,
         Hiding,
@@ -57,13 +56,19 @@ public class LevelTitleCard : MonoBehaviour
         cg = GetComponent<CanvasGroup>();
         text = GetComponentInChildren<TMP_Text>();
 
+        if (cg == null || text == null)
+        {
+            Debug.Log("Cannot find canvas group, text component, or both, please check and add them");
+            return;
+        }
+
         // make sure the text is clear on start
         text.color = Color.clear;
     }
 
     private void Update()
     {
-        switch(tcs)
+        switch(Tcs)
         {
             case TitleCardStage.Reveal:
 
@@ -89,14 +94,14 @@ public class LevelTitleCard : MonoBehaviour
         if (text.color.a < 1)
             RevealText();
         else
-            tcs = TitleCardStage.Hiding;
+            Tcs = TitleCardStage.Hiding;
     }
     private void UpdateHidingStage()
     {
         if (cg.alpha > 0)
             HideSelf();
         else
-            tcs = TitleCardStage.Idle;
+            Tcs = TitleCardStage.Idle;
     }
     private void UpdateIdleStage()
     {
@@ -104,7 +109,7 @@ public class LevelTitleCard : MonoBehaviour
             return;
 
         if (LevelManager.Instance.LevelCompleted)
-            tcs = TitleCardStage.Closing;
+            Tcs = TitleCardStage.Closing;
     }
     private void UpdateClosingStage()
     {

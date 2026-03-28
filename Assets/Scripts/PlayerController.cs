@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.Instance == null || GameManager.Instance.PanelOrNotificationOpen)
         {
-            Debug.Log("Game Manager script does not exist, cannot move");
+            Debug.Log("Game Manager script does not exist or pause panel is up, cannot move");
             return;
         }
 

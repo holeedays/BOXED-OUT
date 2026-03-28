@@ -127,6 +127,12 @@ public class LevelManager : MonoBehaviour
                     {
                         tile3D.Rotate(new Vector3(0f, 0f, -90f));
                     }
+
+                    // add the box rustle sfx here
+                    if (SoundManager.Instance != null)
+                    {
+                        SoundManager.Instance.PlayBoxRustleSFX();
+                    }
                 }
             }
         }
@@ -135,5 +141,11 @@ public class LevelManager : MonoBehaviour
         PlayerController.Instance.transform.position -= moveVectorAndCount.moveVector;
         // and remove the tuple because we've successfully reverted back our position
         MoveVectorAndCounts.RemoveAt(MoveVectorAndCounts.Count - 1);
+
+        // add the player move sfx here
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayPlayerMoveSFX();
+        }
     }
 }

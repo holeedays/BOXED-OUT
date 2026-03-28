@@ -60,6 +60,7 @@ public class ButtonForm : MonoBehaviour
                                                 if (GameManager.Instance == null)
                                                 {
                                                     Debug.LogWarning("Game manager doesn't exist, cannot go to menu.");
+                                                    return;
                                                 }
 
                                                 // set audio here before game manager goes back to menu
@@ -82,6 +83,7 @@ public class ButtonForm : MonoBehaviour
                                                 if (GameManager.Instance == null || SerialTest.Instance == null)
                                                 {
                                                     Debug.LogWarning("Game manager or serial test doesn't exist, cannot start game.");
+                                                    return;
                                                 }
 
                                                 // in the case input is not filled, user will be prompted to fill out adequate information
@@ -117,6 +119,7 @@ public class ButtonForm : MonoBehaviour
                                                if (GameManager.Instance == null || SerialTest.Instance == null)
                                                {
                                                    Debug.LogWarning("Game manager or serial test doesn't exist, cannot start game.");
+                                                   return;
                                                }
 
                                                // set audio here before game manager resumes game
@@ -139,6 +142,7 @@ public class ButtonForm : MonoBehaviour
                                              if (GameManager.Instance == null)
                                              {
                                                  Debug.LogWarning("Game manager doesn't exist, cannot load instructions panel.");
+                                                 return;
                                              }
 
                                              // set audio here before game manager resumes game
@@ -159,6 +163,7 @@ public class ButtonForm : MonoBehaviour
                                             if (GameManager.Instance == null)
                                             {
                                                 Debug.LogWarning("Game manager doesn't exist, cannot load setup panel.");
+                                                return;
                                             }
 
                                             // set audio here before game manager resumes game

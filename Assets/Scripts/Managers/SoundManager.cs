@@ -218,12 +218,12 @@ public class SoundManager : MonoBehaviour
         gameMusicInstance = PlayMusic(Game, GameVolume, 1f, false);
     }
 
-    // I'm only planning for the player to only be able to pause and unpause the game music
+    // I'm only planning for the player to only be able to pause and unpause the game and ending music
     public void PauseGameMusic()
     {
-        if (!MusicIsPlaying)
+        if (!MusicIsPlaying || gameMusicInstance == null)
         {
-            Debug.Log("Cannot pause music. Instance doesn't exist");
+            Debug.Log("Cannot pause music. Instance doesn't exist or no music is playing");
             return;
         }
 
@@ -231,11 +231,11 @@ public class SoundManager : MonoBehaviour
         audioSrc.Pause();
     }
 
-    public void UnPauseGameMusic()
+    public void UnpauseGameMusic()
     {
-        if (!MusicIsPlaying)
+        if (!MusicIsPlaying || gameMusicInstance == null)
         {
-            Debug.Log("Cannot pause music. Instance doesn't exist");
+            Debug.Log("Cannot unpause music. Instance doesn't exist or no music is playing");
             return;
         }
 
@@ -246,5 +246,29 @@ public class SoundManager : MonoBehaviour
     public void PlayEndingMusic()
     {
         endingMusicInstance = PlayMusic(Ending, EndingVolume, 1f, false);
+    }
+
+    public void PauseEndingMusic()
+    {
+        if (!MusicIsPlaying || endingMusicInstance == null)
+        {
+            Debug.Log("Cannot unpause music. Instance doesn't exist or no music is playing");
+            return;
+        }
+
+        AudioSource audioSrc = endingMusicInstance.GetComponent<AudioSource>();
+        audioSrc.Pause();
+    }
+
+    public void UnpauseEndingMusic()
+    {
+        if (!MusicIsPlaying || endingMusicInstance == null)
+        {
+            Debug.Log("Cannot unpause music. Instance doesn't exist or no music is playing");
+            return;
+        }
+
+        AudioSource audioSrc = endingMusicInstance.GetComponent<AudioSource>();
+        audioSrc.UnPause();
     }
 }

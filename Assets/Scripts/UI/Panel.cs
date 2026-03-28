@@ -27,20 +27,23 @@ public class Panel : MonoBehaviour
         else
         {
             Debug.Log("Rect transform is not found in this obj");
+            return;
         }
     }
 
     private void Update()
     {
-        if (thisRectTransform == null)
-            return;
-
-        if (thisRectTransform.localScale.magnitude < Vector3.one.magnitude)
+        if (!IsFullSize())
             ScaleUp();
     }
 
     private void ScaleUp()
     {
         thisRectTransform.localScale = Vector3.Lerp(thisRectTransform.localScale, Vector3.one, ScaleSpeed);
+    }
+
+    private bool IsFullSize()
+    {
+        return thisRectTransform.localScale.magnitude >= Vector3.one.magnitude;
     }
 }

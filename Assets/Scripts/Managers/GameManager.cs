@@ -115,6 +115,9 @@ public class GameManager : MonoBehaviour
         undo.Enable();
         exit.Enable();
         restart.Enable();
+
+        // also lock the user's cursor to prevent some weird issues with the parallax
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void OnDisable()
@@ -162,10 +165,10 @@ public class GameManager : MonoBehaviour
 
     private void UpdateInGameStage()
     {
-        if (SerialTest.Instance == null || 
+        if (!EnableDevMode &&
+            SerialTest.Instance == null && 
             SerialTest.Instance.Sr != null && 
-            !SerialTest.Instance.Sr.PortIsActive && 
-            !EnableDevMode)
+            !SerialTest.Instance.Sr.PortIsActive)
         {
             Debug.LogWarning("Either the serial test script is missing or the serial port hasn't been set up");
 
@@ -187,7 +190,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateEndGameStage()
     {
-        if (SerialTest.Instance == null)
+        if (!EnableDevMode && SerialTest.Instance == null)
         {
             Debug.LogWarning("Serial test script is missing, please add it");
             return;
@@ -354,7 +357,11 @@ public class GameManager : MonoBehaviour
         if (SoundManager.Instance != null)
         {
             SoundManager.Instance.PlayPanelOpenAndCloseSFX();
-            SoundManager.Instance.PauseGameMusic();
+
+            if (currentGameStage == GameStage.InGame)
+                SoundManager.Instance.PauseGameMusic();
+            else if (currentGameStage == GameStage.End)
+                SoundManager.Instance.PauseEndingMusic();
         }
     }
 
@@ -406,7 +413,11 @@ public class GameManager : MonoBehaviour
         if (SoundManager.Instance != null)
         {
             SoundManager.Instance.PlayPanelOpenAndCloseSFX();
-            SoundManager.Instance.UnPauseGameMusic();
+
+            if (currentGameStage == GameStage.InGame)
+                SoundManager.Instance.UnpauseGameMusic();
+            else if (currentGameStage == GameStage.End)
+                SoundManager.Instance.UnpauseEndingMusic();
         }
     }
 

@@ -89,7 +89,7 @@ public class ButtonForm : MonoBehaviour
                                                 // in the case input is not filled, user will be prompted to fill out adequate information
                                                 // technically don't need to do it for continue because serial test has already stored successful values
                                                 if
-                                                (
+                                                (!GameManager.Instance.EnableDevMode &&
                                                 SerialTest.Instance.Port == string.Empty ||
                                                 SerialTest.Instance.Baudrate == 0 ||
                                                 SerialTest.Instance.ReadSpeed == 0 

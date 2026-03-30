@@ -5682,7 +5682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveDistance: 1
-  AngularThreshold: 90
+  AngularThreshold: 10
 --- !u!65 &1062085319
 BoxCollider:
   m_ObjectHideFlags: 0

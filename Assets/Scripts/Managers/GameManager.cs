@@ -165,10 +165,8 @@ public class GameManager : MonoBehaviour
 
     private void UpdateInGameStage()
     {
-        if (!EnableDevMode &&
-            SerialTest.Instance == null && 
-            SerialTest.Instance.Sr != null && 
-            !SerialTest.Instance.Sr.PortIsActive)
+        if (!EnableDevMode && SerialTest.Instance == null ||
+            !EnableDevMode && SerialTest.Instance.Sr != null && !SerialTest.Instance.Sr.PortIsActive)
         {
             Debug.LogWarning("Either the serial test script is missing or the serial port hasn't been set up");
 

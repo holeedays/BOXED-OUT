@@ -7,6 +7,7 @@ using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.Tilemaps;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     // used for gyroscopic purposes
     private Vector3 previousRot;
+    private Vector3 originalGyroRotation = new Vector3(Mathf.Infinity, Mathf.Infinity, Mathf.Infinity);
 
     // player input 
     private PlayerInputActionsBase inputSystemControls;
@@ -90,6 +92,29 @@ public class PlayerController : MonoBehaviour
     {
         inputSystemControls = new PlayerInputActionsBase();
         move = inputSystemControls.Player.Move;
+
+        // store the original orientation of the gyroscope though I'm not sure if this is of any use
+        new Task(() =>
+                                {
+                                    int waitTimeMillis = 100;
+
+                                    while (true)
+                                    {
+                                        if
+                                        (
+                                        SerialTest.Instance != null &&
+                                        SerialTest.Instance.GetParsedSerialData() != Vector3.zero
+                                        )
+                                        {
+                                            originalGyroRotation = SerialTest.Instance.GetParsedSerialData();
+                                            Debug.Log(originalGyroRotation);
+                                            break;
+                                        }
+
+                                        Task.Delay(waitTimeMillis);
+                                    }
+                                }).Start();
+
     }
 
     private void UpdatePlayerKeyBased()
@@ -114,21 +139,32 @@ public class PlayerController : MonoBehaviour
 
     private void UpdatePlayerGyroBased()
     {
+        // this whole thing just doesn't work unfortunately, the drift is too great and I'm not sure how much of it occurs
+        // the only possible way of dealing with this is just to get the angular acceleration from the gyroscope rather than including the 
+        // attitude sensor data
         Vector3 rawInput = GetGyroscopeBasedInput();
+        float tolerance = 0.05f;
 
-        if (!GyroIsBeingRotated(rawInput))
+        Vector3 gyroscopeDrift = new Vector3(0.7f, 0f, 0.7f) * Time.deltaTime;
+        originalGyroRotation += gyroscopeDrift;
+
+        if (!GyroIsBeingRotated(rawInput) && !GyroIsInOriginalPosition(tolerance))
         {
-            hasMoved = false;
             return;
         }
+        else
+        {
+            previousRot = Vector3.zero;
+        }
+
 
         //Vector3 normalizedInput = NormalizeRelativeGyroBasedInput(rawInput); // for box
         Vector3 normalizedInput = NormalizeGyroBasedInput(rawInput);
+        Debug.Log(normalizedInput);
         UpdatePosition(normalizedInput);
         //CalibrateNewOrientation(normalizedInput); // for box
 
         previousRot = rawInput;
-        hasMoved = true;
     }
 
     // Universal/Multifunctional Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -371,6 +407,16 @@ public class PlayerController : MonoBehaviour
         Vector3 rotDiff = inputRot - previousRot;
 
         return rotDiff.magnitude > AngularThreshold;
+    }
+
+    private bool GyroIsInOriginalPosition(float tolerance)
+    {
+        if (SerialTest.Instance != null)
+        {
+            return Quaternion.Dot(Quaternion.Euler(originalGyroRotation), Quaternion.Euler(SerialTest.Instance.GetParsedSerialData())) >= 1 - tolerance;
+        }
+
+        return false;
     }
 
     // Key-Based Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

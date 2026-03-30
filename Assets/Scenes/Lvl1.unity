@@ -4878,7 +4878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveDistance: 1
-  AngularThreshold: 39
+  AngularThreshold: 10
 --- !u!1001 &913477930
 PrefabInstance:
   m_ObjectHideFlags: 0

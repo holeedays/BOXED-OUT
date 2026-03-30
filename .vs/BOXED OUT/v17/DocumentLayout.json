@@ -3,48 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|c:\\users\\weigh\\dropbox\\boxed out\\assets\\scripts\\managers\\soundmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\soundmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|c:\\users\\weigh\\dropbox\\boxed out\\assets\\scripts\\ui\\leveltitlecard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\leveltitlecard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|c:\\users\\weigh\\dropbox\\boxed out\\assets\\scripts\\ui\\panel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\panel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|c:\\users\\weigh\\dropbox\\boxed out\\assets\\scripts\\ui\\buttonform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\buttonform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\managers\\levelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\levelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|c:\\users\\weigh\\dropbox\\boxed out\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|c:\\users\\weigh\\dropbox\\boxed out\\assets\\scripts\\arduino\\serialread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\arduino\\serialread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\gridcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gridcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\goal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\goal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\ui\\leveltitlecard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\leveltitlecard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\arduino\\serialtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\arduino\\serialtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\arduino\\serialread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\arduino\\serialread.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\cameracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -53,6 +29,30 @@
     {
       "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\phone testing\\gyro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\phone testing\\gyro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\managers\\soundmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\soundmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\ui\\panel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\panel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\ui\\buttonform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\buttonform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\managers\\levelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\levelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\gridcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gridcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|C:\\Users\\weigh\\Dropbox\\BOXED OUT\\assets\\scripts\\goal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1ED49E74-0E99-D113-4861-DA747C146E81}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\goal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,11 +62,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "Panel.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\UI\\Panel.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\Panel.cs",
@@ -74,38 +74,36 @@
               "RelativeToolTip": "Assets\\Scripts\\UI\\Panel.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAowB4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T22:58:48.127Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T22:58:48.127Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "LevelTitleCard.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\UI\\LevelTitleCard.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\LevelTitleCard.cs",
               "ToolTip": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\UI\\LevelTitleCard.cs",
               "RelativeToolTip": "Assets\\Scripts\\UI\\LevelTitleCard.cs",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAIwHkAAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAAwHkAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T22:36:32.138Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T22:36:32.138Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\Managers\\GameManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\GameManager.cs",
               "ToolTip": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\Managers\\GameManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Managers\\GameManager.cs",
-              "ViewState": "AgIAAJsAAAAAAAAAAAAYwLcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKAAAAAAAAAAAAAAwKgAAABlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-25T20:36:54.709Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "ButtonForm.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\UI\\ButtonForm.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\ButtonForm.cs",
@@ -113,25 +111,23 @@
               "RelativeToolTip": "Assets\\Scripts\\UI\\ButtonForm.cs",
               "ViewState": "AgIAAIEAAAAAAAAAAAAIwJUAAABeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T22:06:12.822Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T22:06:12.822Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "SoundManager.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\Managers\\SoundManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\SoundManager.cs",
               "ToolTip": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\Managers\\SoundManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Managers\\SoundManager.cs",
-              "ViewState": "AgIAAK0AAAAAAAAAAAAmwMkAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAMkAAAAAAAAAAAAxwMkAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T20:11:11.342Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T20:11:11.342Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "LevelManager.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\Managers\\LevelManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\LevelManager.cs",
@@ -139,25 +135,24 @@
               "RelativeToolTip": "Assets\\Scripts\\Managers\\LevelManager.cs",
               "ViewState": "AgIAAFMAAAAAAAAAAAAIwHoAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-27T19:01:08.52Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T19:01:08.52Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerController.cs",
               "ToolTip": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\PlayerController.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerController.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAgwCoBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAHcAAAAAAAAAAAAuwI8AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-13T16:28:55.112Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "GridController.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\GridController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GridController.cs",
@@ -169,7 +164,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "Goal.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\Goal.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Goal.cs",
@@ -181,19 +176,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 3,
               "Title": "SerialTest.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\Arduino\\SerialTest.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Arduino\\SerialTest.cs",
               "ToolTip": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\Arduino\\SerialTest.cs",
               "RelativeToolTip": "Assets\\Scripts\\Arduino\\SerialTest.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACsAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAADcAAAAAAAAAAIA6wD0AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-11T19:13:25.072Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 5,
               "Title": "CameraController.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\CameraController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\CameraController.cs",
@@ -205,19 +200,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 6,
               "Title": "Gyro.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\Phone Testing\\Gyro.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Phone Testing\\Gyro.cs",
               "ToolTip": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\Phone Testing\\Gyro.cs",
               "RelativeToolTip": "Assets\\Scripts\\Phone Testing\\Gyro.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAAAwwAcAAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAowAcAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-23T17:26:16.393Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
               "Title": "SerialRead.cs",
               "DocumentMoniker": "C:\\Users\\weigh\\Dropbox\\BOXED OUT\\Assets\\Scripts\\Arduino\\SerialRead.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Arduino\\SerialRead.cs",
@@ -225,8 +220,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Arduino\\SerialRead.cs",
               "ViewState": "AgIAAI0AAAAAAAAAAAAkwKcAAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-11T18:04:35.382Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-11T18:04:35.382Z"
             }
           ]
         }
